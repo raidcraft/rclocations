@@ -1,0 +1,7 @@
+name: RCLocations
+main: de.raidcraft.locations.RCLocationsPlugin
+version: ${project.version}#${build.number}
+author: Silthus
+website: www.raid-craft.de
+depend: [RaidCraft-API]
+database: true
