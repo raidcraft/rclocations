@@ -62,6 +62,7 @@ public class LocationManager implements LocationProvider {
             return false;
         }
         locations.put(name, location);
+        getPlugin().getLogger().info("Registered named location: " + name + " (" + location.getLocation().toString() + ")");
         return true;
     }
 
