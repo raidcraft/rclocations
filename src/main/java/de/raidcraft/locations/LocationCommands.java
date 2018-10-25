@@ -8,10 +8,8 @@ import lombok.Data;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
-@Data
 public class LocationCommands {
 
-    private final RCLocationsPlugin plugin;
 
     @Command(
             aliases = {"rclocations", "rclocs"},
@@ -23,7 +21,10 @@ public class LocationCommands {
 
     }
 
+    @Data
     public class SubCommands {
+
+        private final RCLocationsPlugin plugin;
 
         @Command(
                 aliases = {"reload"},
