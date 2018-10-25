@@ -10,6 +10,10 @@ import org.bukkit.command.CommandSender;
 
 public class LocationCommands {
 
+    public LocationCommands(RCLocationsPlugin plugin) {
+
+    }
+
 
     @Command(
             aliases = {"rclocations", "rclocs"},
