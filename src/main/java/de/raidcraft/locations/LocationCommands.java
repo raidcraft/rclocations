@@ -26,7 +26,7 @@ public class LocationCommands {
     }
 
     @Data
-    public class SubCommands {
+    public static class SubCommands {
 
         private final RCLocationsPlugin plugin;
 
