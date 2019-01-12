@@ -21,6 +21,8 @@ public class LocationManager implements LocationProvider {
     private final RCLocationsPlugin plugin;
     private final Map<String, ConfiguredLocation> locations = new CaseInsensitiveMap<>();
 
+    private int failed = 0;
+
     public LocationManager(RCLocationsPlugin plugin) {
         this.plugin = plugin;
         Locations.registerLocationProvider(this);
@@ -31,8 +33,10 @@ public class LocationManager implements LocationProvider {
     }
 
     private void load() {
+        failed = 0;
         ConfigUtil.loadRecursiveConfigs(getPlugin(), "locations", new LocationConfigLoader(getPlugin()));
         ConfigUtil.loadRecursiveConfigs(getPlugin(), "locations", new LocationsConfigLoader(getPlugin()));
+        getPlugin().getLogger().info("Loaded " + locations.size() + "/" + (locations.size() + failed) + " locations.");
     }
 
     public void reload() {
@@ -59,10 +63,13 @@ public class LocationManager implements LocationProvider {
     public boolean registerLocation(String name, ConfiguredLocation location) {
         if (locations.containsKey(name)) {
             getPlugin().getLogger().warning("Cannot register duplicate location with name " + name);
+            failed++;
             return false;
         }
         locations.put(name, location);
-        getPlugin().getLogger().info("Registered named location: " + name + " (" + location.getLocation().toString() + ")");
+        if (getPlugin().getConfig().debugLocationLoading) {
+            getPlugin().getLogger().info("Registered named location: " + name + " (" + location.getLocation().toString() + ")");
+        }
         return true;
     }
 
@@ -100,6 +107,7 @@ public class LocationManager implements LocationProvider {
     private void registerLocation(String id, ConfigurationSection config) {
         Optional<ConfiguredLocation> location = Locations.fromConfig(config);
         if (!location.isPresent()) {
+            failed++;
             getPlugin().warning("Could not parse " + id + " (" + ConfigUtil.getFileName(config) + ") as valid location config!");
             return;
         }

@@ -2,6 +2,7 @@ package de.raidcraft.locations;
 
 import de.raidcraft.api.BasePlugin;
 import de.raidcraft.api.config.ConfigurationBase;
+import de.raidcraft.api.config.Setting;
 import de.raidcraft.api.locations.Locations;
 import lombok.Getter;
 import net.citizensnpcs.api.CitizensAPI;
@@ -33,6 +34,9 @@ public class RCLocationsPlugin extends BasePlugin {
     }
 
     public class LocalConfiguration extends ConfigurationBase<RCLocationsPlugin> {
+
+        @Setting("debug-location-loading")
+        public boolean debugLocationLoading = false;
 
         public LocalConfiguration(RCLocationsPlugin plugin) {
             super(plugin, "config.yml");
