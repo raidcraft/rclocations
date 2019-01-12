@@ -108,7 +108,9 @@ public class LocationManager implements LocationProvider {
         Optional<ConfiguredLocation> location = Locations.fromConfig(config);
         if (!location.isPresent()) {
             failed++;
-            getPlugin().warning("Could not parse " + id + " (" + ConfigUtil.getFileName(config) + ") as valid location config!");
+            if (getPlugin().getConfig().debugLocationLoading) {
+                getPlugin().warning("Could not parse " + id + " (" + ConfigUtil.getFileName(config) + ") as valid location config!");
+            }
             return;
         }
         registerLocation(id, location.get());
