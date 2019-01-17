@@ -2,6 +2,7 @@ package de.raidcraft.locations;
 
 import de.raidcraft.api.BasePlugin;
 import de.raidcraft.api.config.ConfigLoader;
+import de.raidcraft.api.config.ConfigurationBase;
 import de.raidcraft.api.locations.ConfiguredLocation;
 import de.raidcraft.api.locations.LocationProvider;
 import de.raidcraft.api.locations.Locations;
@@ -85,7 +86,7 @@ public class LocationManager implements LocationProvider {
         }
 
         @Override
-        public void loadConfig(String id, ConfigurationSection config) {
+        public void loadConfig(String id, ConfigurationBase config) {
             registerLocation(id, config);
         }
     }
@@ -97,7 +98,7 @@ public class LocationManager implements LocationProvider {
         }
 
         @Override
-        public void loadConfig(String id, ConfigurationSection config) {
+        public void loadConfig(String id, ConfigurationBase config) {
             for (String key : config.getKeys(false)) {
                 registerLocation(id + "." + key, config.getConfigurationSection(key));
             }
